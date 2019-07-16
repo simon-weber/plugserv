@@ -1,0 +1,6 @@
+#pattern  filter=crypt diff=crypt
+secrets/*  filter=crypt diff=crypt
+ansible/secrets.yml  filter=crypt diff=crypt
+
+# exempt the secrets readme
+secrets/README.md filter=cat diff=cat

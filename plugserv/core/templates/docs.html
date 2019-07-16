@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <h1>Documentation</h1>
+        <h4><a href="#setup">Setup and installation</a></h4>
+        <h4><a href="#serving">Plug serving</a></h4>
+        <h4><a href="#metrics">Metrics and Google Analytics export</a></h4>
+        <h4><a href="#security">Security</a></h4>
+    </div>
+    <div class="row">
+        <h3 id="setup">Setup and installation</h3>
+        <p>
+        To include Plugserv on your site, you'll need to:
+        <ul>
+            <li><a href="{% url 'account_signup' %}">sign up</a> for an account</li>
+            <li><a href="{% url 'plug-hlist' %}">create</a> at least one plug</li>
+            <li><a href="{% url 'plug-hlist' %}">add</a> the snippet to one or more of your properties</li>
+        </ul>
+        </p>
+
+        <p>
+        The snippet is configured using a <code>plugserv_config</code> object on the window.
+        The object must include:
+        <ul>
+            <li><code>elementId</code>: an id of a DOM element. Its innerHTML will be replaced by your plug html.</li>
+            <li><code>endpoint</code>: the url to retrieve your plugs from. This will usually point to plugserv.com and provide your id, but it may be changed if you are self-hosting.</li>
+        </ul>
+        </p>
+
+        <p>
+        The snippet source is available <a href="{% url "js_v1" %}">here</a>, if you would like to inspect it.
+        The <a href="#security">security section</a> has recommendations on including it safely, especially if you're adding it to a site with user data.
+        </p>
+
+        <h3 id="serving">Plug serving</h3>
+        <p>
+        If you have multiple plugs, properties rotate between them every 24 hours.
+        Different properties are not guaranteed to show the same plug at the same time.
+        Adding and removing plugs may also affect which is currently being served.
+        </p>
+
+        <p>
+        To avoid sites plugging themselves, plugs are not served to origins with the exact same domain, including any subdomains.
+        This means that a plug with domain <code>example.com</code> could be served to a user on <code>www.example.com</code>
+        (this may be addressed in the future if it's deemed problematic).
+        </p>
+
+        <h3 id="metrics">Metrics and Google Analytics export</h3>
+        <p>
+        To limit database requirements, Plugserv does not record the number of times a plug is served ("impressions") or clicked.
+        If you'd like to track this information you can configure Plugserv to export events to Google Analytics.
+        To do this:
+        </p>
+        <ul>
+            <li>create a free <a href="https://analytics.google.com/">Google Analytics</a> account if you do not already have one</li>
+            <li>create a new account and property for your Plugserv data</li>
+            <li>disable "Exclude all hits from known bots and spiders" for the view you plan to use (more on this below)</li>
+            <li>enter the tracking code from your new property in your <a href="{% url 'user-hlist' %}">Plugserv user settings</a></li>
+        </ul>
+        <p>
+        Plugserv will start sending events immediately; there is no update required to your snippet.
+        To stop sending events, update your Plugserv user settings to use an empty tracking code.
+        </p>
+        <p>
+        Events have the following schema:
+        <ul>
+            <li>category: 'click' or 'impression'</li>
+            <li>action: the domain of the plug</li>
+            <li>label: the domain of the site the plug was served to</li>
+        </ul>
+        </p>
+        <p>
+        Here are some more details on how events are sent:
+        </p>
+        <ul>
+            <li>events are sent from Plugserv's backend via the <a href="https://developers.google.com/analytics/devguides/collection/protocol/v1/">Measurement Protocol</a></li>
+            <li>bot/spider filtering must be disabled since there's no way to authenticate Plugserv's events; factors like bots previously run from my provider's IP may otherwise result in missing data. Bots should not be a concern since your tracking code is never shared publicly.</li>
+            <li>impressions are sent when a plug is served, regardless of whether it was actually seen by someone</li>
+            <li>clicks are sent any time the plug element is clicked (ie, not just links inside it) and the user's browser supports the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Beacon_API">Beacon API</a> (to avoid navigation latency)</li>
+            <li>users with the <a href="https://tools.google.com/dlpage/gaoptout">Google Analytics Opt-Out extension</a> installed will never have their clicks tracked</li>
+        </ul>
+
+        <h3 id="security">Security</h3>
+        <p>
+        Plugserv can include arbitrary html in your site, which is a security risk.
+        While the <a href="https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy">same-origin policy</a> provides some basic protections, you can further limit your exposure in a few ways.
+        </p>
+
+        <p>
+        First, keep the provided <a href="https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity">SRI hash</a> in the snippet.
+        This ensures that if the Plugserv client code were to change unexpectedly, browsers will refuse to run it.
+        </p>
+
+        <p>
+        Second, consider setting an appropriate <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP">CSP policy</a> on any site running Plugserv.
+        For example, a policy like <code>script-src 'sha256-...' www.plugserv.com;</code> (with the hash set for your <code>window.plugserv_config</code> inline code) will prevent malicious plugs from executing code.
+        Alternatively, you can self-host a copy of the configuration and client code, then use <code>script-src 'self';</code>.
+        Either of these will help protect your sites if Plugserv or your Plugserv account were compromised.
+        </p>
+    </div>
+</div>
+{% endblock content%}

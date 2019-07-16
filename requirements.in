@@ -1,0 +1,10 @@
+django
+django-allauth
+django-amazon-ses
+django-bootstrap-form
+django-crispy-forms
+djangorestframework
+google-measurement-protocol
+gunicorn[gevent]
+sentry-sdk
+tldextract

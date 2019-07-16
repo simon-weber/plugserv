@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load snippet %}
+{% block content %}
+
+<h1>Snippet</h1>
+<p>
+Your Plugserv id is: <code>{{ user.serve_id }}</code>
+</p>
+
+<p>
+Here is an example snippet to include in your sites:
+<pre><code>{% snippet request True user.serve_id %}</code></pre>
+</p>
+
+{% if plugs %}
+<p>
+Here is a live example using that snippet:
+</p>
+{% snippet request False user.serve_id %}
+{% endif %}
+
+For more details on setting up the snippet, visit <a href="{% url 'docs' %}">the documentation</a>.
+
+<h1>Plugs</h1>
+<p>
+<a class="btn btn-primary" role="button" href="{% url 'plug-hnew' %}">Add a new plug</a>
+</p>
+
+{% if plugs %}
+<p>
+Configure an existing plug:
+</p>
+<ul>
+    {% for plug in plugs %}
+    <li>
+        <a href="{% url 'plug-hretrieve' pk=plug.pk %}">{{ plug.domain }}</a>
+    </li>
+    {% endfor %}
+</ul>
+{% endif %}
+{% endblock content %}

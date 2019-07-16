@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load rest_framework %}
+{% block content %}
+{% if plug %}
+        <form action="{% url 'plug-hpatch' pk=plug.pk %}" method="POST">
+{% else %}
+        <form action="{% url 'plug-hcreate' %}" method="POST">
+{% endif %}
+            {% csrf_token %}
+            {% render_form serializer %}
+            <a href="{% url 'plug-hlist' %}">back</a>
+{% if plug %}
+<input type="submit" class="btn btn-danger" value="Delete" formaction="{% url 'plug-hdestroy' pk=plug.pk %}">
+        {% endif %}
+            <input type="submit" class="btn btn-primary" value="Submit">
+        </form>
+{% endblock content %}

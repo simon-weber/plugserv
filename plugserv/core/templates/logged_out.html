@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load snippet %}
+{% block navbar %}
+{% endblock navbar %}
+{% block header %}
+<div class="jumbotron">
+    <div class="container text-center landing">
+        <div class="col-md-12">
+            <h1>Plugserv</h1>
+            <p>Shamelessly plug personal projects across your own sites.
+            </p>
+            <a type="button" class="btn btn-lg btn-primary" href="{% url 'account_signup' %}">Sign up</a>
+            <a type="button" class="btn btn-lg btn-default" href="{% url 'account_login' %}">Log in</a>
+        </div>
+    </div>
+</div>
+<div class="container landing">
+    <div class="row">
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-8">
+            <p>
+            Plugserv is an ad server for your own projects. It lets you share traffic between your own sites.
+            </p>
+            <p>
+            Here's a live example using my account:
+            </p>
+            <pre><code>{% snippet request True %}</code></pre>
+            <p>
+            This snippet rotates daily through ads like:
+            </p>
+            {% snippet request False %}
+
+            <p>
+            Here's some more details:
+            <ul>
+                <li>Each user receives a unique url which only displays their own plugs</li>
+                <li>Plugs can be arbitrary html, but should at least have some text and a link</li>
+                <li>Impressions and clicks may be exported to Google Analytics for tracking</li>
+            </ul>
+            Interested? Check out <a href="{% url 'docs' %}">the docs</a> for more information or <a href="{% url 'account_signup' %}">sign up</a> to get started.
+            </p>
+        </div>
+        <div class="col-md-2">
+        </div>
+    </div>
+</div>
+{% endblock header %}

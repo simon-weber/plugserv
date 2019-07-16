@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% load rest_framework %}
+{% block content %}
+<h1>User Settings</h1>
+
+        <form action="{% url 'user-hpatch' pk=user.pk %}" method="POST">
+            {% csrf_token %}
+            {% render_form serializer %}
+            <input type="submit" class="btn btn-primary" value="Save">
+        </form>
+{% endblock content %}

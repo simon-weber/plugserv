@@ -14,7 +14,7 @@ django-allauth==0.39.1
 django-amazon-ses==2.1.1
 django-bootstrap-form==3.4
 django-crispy-forms==1.7.2
-django==2.2.1
+django==2.2.3
 djangorestframework==3.9.3
 docutils==0.14            # via botocore
 gevent==1.4.0             # via gunicorn

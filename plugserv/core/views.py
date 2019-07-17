@@ -189,9 +189,9 @@ def _get_origin(request):
         if extracted:
             # we may want to handle subdomains differently at some point
             origin = '.'.join(e for e in extracted if e)
-            logging.info("extracted origin %r to %r", request.headers['origin'], origin)
+            logger.info("extracted origin %r to %r", request.headers['origin'], origin)
         else:
-            logging.warning("could not extract domain from %r", request.headers['origin'])
+            logger.warning("could not extract domain from %r", request.headers['origin'])
 
     return origin
 
@@ -203,7 +203,7 @@ def serve_plug(request, serve_id):
     plugs = list(Plug.objects.filter(owner__serve_id=serve_id).exclude(domain=origin).order_by('id'))
     days_into_year = time.localtime().tm_yday
     plug = plugs[days_into_year % len(plugs)]
-    logging.info("serving %r to %r", plug, origin)
+    logger.info("serving %r to %r", plug, origin)
 
     click_url = None
     if plug.owner.ga_tracking_id:

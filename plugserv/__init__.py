@@ -2,7 +2,6 @@ from concurrent.futures import ThreadPoolExecutor
 import hashlib
 import logging
 
-from django.conf import settings
 import google_measurement_protocol as gmp
 
 SALT = b'P6e!f3x%rvipP^N4'
@@ -34,6 +33,8 @@ def report_ga_event_async(request, tracking_id, **event_kwargs):
 
     event_kwargs must have category and action, and may have label and value.
     """
+    from django.conf import settings  # avoid import-time issues where we get prod settings
+
     ip = get_client_ip(request)
     if not ip:
         ip = 'anonymous'

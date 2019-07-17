@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+{% load static %}<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -47,6 +47,12 @@
 			overflow-y: scroll;
 		}
 
+        /* size svg's to text */
+        .icon svg {
+            height: 1em;
+            width: 1em;
+        }
+
 		/* fix navbar-text indentation on mobile: http://stackoverflow.com/a/20411963 */
 		@media (max-width: 767px) {    
 			p.navbar-text {
@@ -63,6 +69,19 @@
 			.container:not(.landing) {
 				width: 768px;
 			}
+		}
+
+        /* icons */
+        /* upload from https://github.com/encharm/Font-Awesome-SVG-PNG to https://www.base64-image.de */
+		.user-icon {
+			width: 1em;
+			height: 1em;
+			background-size: cover;
+			background-repeat: no-repeat;
+			display: inline-block;
+			background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPHN2ZyB3aWR0aD0iMTc5MiIgaGVpZ2h0PSIxNzkyIiB2aWV3Qm94PSIwIDAgMTc5MiAxNzkyIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxwYXRoIGQ9Ik0xNTM2IDEzOTlxMCAxMDktNjIuNSAxODd0LTE1MC41IDc4aC04NTRxLTg4IDAtMTUwLjUtNzh0LTYyLjUtMTg3cTAtODUgOC41LTE2MC41dDMxLjUtMTUyIDU4LjUtMTMxIDk0LTg5IDEzNC41LTM0LjVxMTMxIDEyOCAzMTMgMTI4dDMxMy0xMjhxNzYgMCAxMzQuNSAzNC41dDk0IDg5IDU4LjUgMTMxIDMxLjUgMTUyIDguNSAxNjAuNXptLTI1Ni04ODdxMCAxNTktMTEyLjUgMjcxLjV0LTI3MS41IDExMi41LTI3MS41LTExMi41LTExMi41LTI3MS41IDExMi41LTI3MS41IDI3MS41LTExMi41IDI3MS41IDExMi41IDExMi41IDI3MS41eiIvPjwvc3ZnPg==');
+			top: .125em;
+			position: relative;
 		}
 	</style>
 
@@ -99,7 +118,7 @@
                         <li><a href="{% url 'account_logout' %}?next=/">Log Out</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><p class="navbar-text"><span class="glyphicon glyphicon-user"></span> <a href="{% url 'account_email' %}">{{ user.username }}</a></p></li>
+                        <li><p class="navbar-text"><i class="user-icon"></i> <a href="{% url 'account_email' %}">{{ user.username }}</a></p></li>
                     </ul>
                     {% else %}
                     <ul class="nav navbar-nav">

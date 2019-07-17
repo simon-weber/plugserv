@@ -1,0 +1,7 @@
+{% load account %}{% user_display user as user_display %}{% load i18n %}{% autoescape off %}{% blocktrans with site_name=current_site.name site_domain=current_site.domain %}To confirm this email as belonging to Plugserv user {{ user_display }}, click the link below:
+
+{{ activate_url }}
+
+You may safely ignore this email if you do not want to connect this email.
+{% endblocktrans %}{% endautoescape %}
+{% blocktrans with site_name=current_site.name site_domain=current_site.domain %}{{ site_domain }}{% endblocktrans %}

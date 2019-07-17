@@ -23,6 +23,7 @@ DATABASES = {
     }
 }
 
+SEND_GA_EVENTS = False
 EXAMPLE_SERVE_ID = os.environ.get('EXAMPLE_SERVE_ID', 'aa5bcf1d-27cd-48d7-897e-1e73ed9192b8')
 
 # disable sentry

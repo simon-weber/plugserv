@@ -110,6 +110,7 @@ in let
   };
 in {
   network.description = "plugserv";
+  network.enableRollback = true;
   virtualbox = genericConf;
   alpha-simon-codes = genericConf;
 }

@@ -1,6 +1,7 @@
 let
   pydrive = pkgs: import ./pydrive.nix {inherit pkgs;};
   duplKey = builtins.readFile ../secrets/pydriveprivatekey.pem;
+  dbPath = "/opt/plugserv/plugserv_db.sqlite3";
 in let
   genericConf = { config, pkgs, ... }: {
     services.nginx = {
@@ -56,12 +57,18 @@ in let
     };
     services.duplicity = {
       enable = true;
-      root = "/opt/plugserv/plugserv_db.sqlite3";
-      targetUrl = "pydrive://duply-alpha@repominder.iam.gserviceaccount.com/plugserv_backups/db1";
+      root = "/tmp/db.backup";
+      targetUrl = "pydrive://duply-alpha@repominder.iam.gserviceaccount.com/plugserv_backups/db2";
       secretFile = pkgs.writeText "dupl.env" ''
         GOOGLE_DRIVE_ACCOUNT_KEY="${duplKey}"
       '';
       extraFlags = ["--no-encryption"];
+    };
+    systemd.services.duplicity = {
+      path = [ pkgs.bash pkgs.sqlite ];
+      preStart = ''sqlite3 ${dbPath} ".backup /tmp/db.backup"'';
+      # privateTmp should handle this, but this helps in case it's eg disabled upstream
+      postStop = "rm /tmp/db.backup";
     };
     systemd.services.plugserv = {
       enable = true;
@@ -103,6 +110,7 @@ in let
     )];
 
     environment.systemPackages = with pkgs; [
+      sqlite
       duplicity
       vim
       (python37.withPackages(ps: with ps; [ virtualenv pip ]))

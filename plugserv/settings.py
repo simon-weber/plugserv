@@ -190,6 +190,9 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 ACCOUNT_DEFAULT_HTTP_PROTOCOL = "https"
 ACCOUNT_PRESERVE_USERNAME_CASING = False
+ACCOUNT_FORMS = {
+    'signup': 'plugserv.core.forms.SignupFormUsernameFocus',
+}
 LOGIN_REDIRECT_URL = '/api/plugs/hlist'
 
 sentry_logging = LoggingIntegration(

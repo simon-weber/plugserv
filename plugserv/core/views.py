@@ -8,7 +8,7 @@ from django.http import JsonResponse
 from django.views.generic import TemplateView
 from django.views.decorators.http import require_http_methods
 from django.views.decorators.csrf import csrf_exempt
-from django.views.decorators.cache import cache_control, never_cache
+from django.views.decorators.cache import cache_control
 from django.utils.decorators import method_decorator
 
 from plugserv import report_ga_event_async
@@ -216,6 +216,13 @@ def serve_plug(request, serve_id):
         )
         click_url = request.build_absolute_uri(reverse('track_click', args=(plug.id, )))
 
+    report_ga_event_async(
+        request,
+        settings.GA_TRACKING_ID,
+        category='impression',
+        action=plug.domain,
+        label=origin,
+    )
     res = JsonResponse({
         'click_url': click_url,
         'plug': PlugSerializer(plug, context={'request': request}).data
@@ -242,6 +249,14 @@ def track_click(request, plug_id):
         )
     else:
         logger.warn("click tracking requested for %r but GA id not set", plug)
+
+    report_ga_event_async(
+        request,
+        settings.GA_TRACKING_ID,
+        category='click',
+        action=plug.domain,
+        label=origin,
+    )
 
     res = JsonResponse({})
     res["Access-Control-Allow-Origin"] = "*"

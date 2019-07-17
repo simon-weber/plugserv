@@ -209,4 +209,5 @@ sentry_sdk.init(
 )
 
 SEND_GA_EVENTS = True
+GA_TRACKING_ID = 'UA-142386700-3'
 EXAMPLE_SERVE_ID = 'eb7e777e-9ec5-4323-acba-4e05f881cf42'

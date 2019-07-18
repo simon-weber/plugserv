@@ -44,6 +44,13 @@ in let
       extraConfig = ''
         journalbeat.inputs:
         - paths: ["/var/log/journal"]
+          include_matches:
+            - "_SYSTEMD_UNIT=acme-www.plugserv.com.service"
+            - "_SYSTEMD_UNIT=duplicity.service"
+            - "_SYSTEMD_UNIT=nginx.service"
+            - "_SYSTEMD_UNIT=plugserv.service"
+            - "_SYSTEMD_UNIT=sshd.service"
+
         output:
          elasticsearch:
            hosts: ["https://cloud.humio.com:443/api/v1/ingest/elastic-bulk"]

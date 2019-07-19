@@ -41,12 +41,13 @@ in let
     };
     services.journalbeat = {
       enable = true;
+      # I'm not sure why some of these use a custom unit and others don't
       extraConfig = ''
         journalbeat.inputs:
         - paths: ["/var/log/journal"]
           include_matches:
-            - "_SYSTEMD_UNIT=acme-www.plugserv.com.service"
-            - "_SYSTEMD_UNIT=duplicity.service"
+            - "UNIT=acme-www.plugserv.com.service"
+            - "UNIT=duplicity.service"
             - "_SYSTEMD_UNIT=nginx.service"
             - "_SYSTEMD_UNIT=plugserv.service"
             - "_SYSTEMD_UNIT=sshd.service"

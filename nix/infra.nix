@@ -8,7 +8,7 @@
     };
   alpha-simon-codes =
     { config, lib, pkgs, ... }:
-    { deployment.targetHost = "198.98.61.203";
+    { deployment.targetHost = "alpha.simon.codes";
 
       # from generated configuration.nix
       boot.loader.grub.device = "/dev/vda";

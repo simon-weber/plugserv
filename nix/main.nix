@@ -1,5 +1,4 @@
 let
-  pydrive = pkgs: import ./pydrive.nix {inherit pkgs;};
   duplKey = builtins.readFile ../secrets/pydriveprivatekey.pem;
   dbPath = "/opt/plugserv/plugserv_db.sqlite3";
 in let
@@ -110,7 +109,6 @@ in let
     };
     nixpkgs.overlays = [ (self: super: {
       duplicity = super.duplicity.overrideAttrs (oldAttrs: { 
-        propagatedBuildInputs = oldAttrs.propagatedBuildInputs ++ [ (pydrive pkgs).packages.PyDrive ];
         doCheck = false;
         doInstallCheck = false;
       });

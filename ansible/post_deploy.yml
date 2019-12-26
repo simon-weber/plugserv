@@ -4,24 +4,13 @@
   vars_files:
     - secrets.yml
   tasks:
-    - name: install app dependencies
-      command: "{{ venv }}/exec pip install -r {{ appdir }}/requirements.txt"
-      register: pip_result
-      changed_when: 'pip_result.stdout is defined and "Successfully installed" in pip_result.stdout'
-
     - name: perform migrations
-      become: yes
-      become_user: "{{ appuser }}"
-      command: "{{ venv }}/exec python manage.py migrate --noinput"
-      args:
-          chdir: "{{ appdir }}"
+      command: "docker run {{ dockerargs }} {{ appname }}:staging python manage.py migrate --noinput"
       register: migrate_result
       changed_when: 'migrate_result.stdout is defined and "No migrations to apply." not in migrate_result.stdout'
 
     - name: collectstatic
-      command: "{{ venv }}/exec python manage.py collectstatic -c --noinput"
-      args:
-          chdir: "{{ appdir }}"
+      command: "docker run -u=root {{ dockerargs }} {{ appname }}:staging python manage.py collectstatic -c --noinput"
 
     - name: check for superuser
       shell: >
@@ -30,9 +19,7 @@
         User = get_user_model();
         sus = User.objects.filter(is_superuser=True);
         print(any([su for su in sus if su.username == '{{ DJ_SUPERUSER }}']))"
-        | {{ venv }}/exec python manage.py shell
-      args:
-          chdir: "{{ appdir }}"
+        | docker run -i {{ dockerargs }} {{ appname }}:staging python manage.py shell
       register: superuser_present
       changed_when: False
     
@@ -42,9 +29,7 @@
         from django.contrib.auth import get_user_model;
         User = get_user_model();
         print(User.objects.db_manager(database).create_superuser('{{ DJ_SUPERUSER }}', '{{ DJ_SUPERUSER_EMAIL }}', '{{ DJ_SUPERUSER_PASSWORD }}'))"
-        | {{ venv }}/exec python manage.py shell
-      args:
-          chdir: "{{ appdir }}"
+        | docker run -i {{ dockerargs }} {{ appname }}:staging python manage.py shell
       when: not "True" in superuser_present.stdout
 
     - name: set site details
@@ -55,15 +40,17 @@
         s.name = 'plugserv';
         s.save();
         print(Site.objects.get_current())"
-        | {{ venv }}/exec python manage.py shell
-      args:
-          chdir: "{{ appdir }}"
+        | docker run -i {{ dockerargs }} {{ appname }}:staging python manage.py shell
 
-    - name: start app service
+    - name: update remote tag
+      command: docker tag {{ appname }}:staging {{ appname }}:latest
+
+    - name: restart app service
       systemd:
-        state: started
+        state: restarted
         daemon_reload: yes
-        name: "{{ appname }}"
+        name: "docker-{{ appname }}"
 
-    - name: clean up deploy tars
-      shell: "rm -rf {{ deploydir }}/*"
+    - name: update local tag
+      local_action: command docker tag {{ appname }}:staging {{ appname }}:latest
+      run_once: true

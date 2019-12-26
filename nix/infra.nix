@@ -9,16 +9,15 @@
   alpha-simon-codes =
     { config, lib, pkgs, ... }:
     { deployment.targetHost = "alpha.simon.codes";
+      networking.hostName = "alpha.simon.codes";
 
       # from generated configuration.nix
       boot.loader.grub.device = "/dev/vda";
       boot.loader.grub.enable = true;
       boot.loader.grub.version = 2;
       services.openssh.enable = true;
-      services.openssh.permitRootLogin = "yes";
-      # networking.firewall.allowedTCPPorts = [ 22 ];
+      services.openssh.permitRootLogin = "prohibit-password";
       system.stateVersion = "18.09";
-
 
       # from generated hardware-configuration.nix
       boot.initrd.availableKernelModules = [ "ata_piix" "uhci_hcd" "virtio_pci" "sr_mod" "virtio_blk" ];

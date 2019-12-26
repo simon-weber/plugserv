@@ -3,6 +3,16 @@ let
   dbPath = "/opt/plugserv/plugserv_db.sqlite3";
 in let
   genericConf = { config, pkgs, ... }: {
+    virtualisation.docker = {
+      enable = true;
+      logDriver = "journald";
+    };
+    docker-containers.plugserv = {
+      image = "plugserv:latest";
+      ports = [ "127.0.0.1:8000:8000" ];
+      volumes = [ "/opt/plugserv:/opt/plugserv" ];
+    };
+
     services.nginx = {
       enable = true;
       recommendedGzipSettings = true;
@@ -13,7 +23,6 @@ in let
         servers = {
           "127.0.0.1:8000" = {};
         };
-        # extraConfig = "fail_timeout=0";
       };
       virtualHosts."www.plugserv.com" = {
         enableACME = true;
@@ -40,17 +49,16 @@ in let
     };
     services.journalbeat = {
       enable = true;
-      # I'm not sure why some of these use a custom unit and others don't
       extraConfig = ''
         journalbeat.inputs:
         - paths: ["/var/log/journal"]
           include_matches:
             - "UNIT=acme-www.plugserv.com.service"
             - "UNIT=duplicity.service"
+            - "UNIT=docker-plugserv.service"
             - "_SYSTEMD_UNIT=nginx.service"
-            - "_SYSTEMD_UNIT=plugserv.service"
+            - "_SYSTEMD_UNIT=docker-plugserv.service"
             - "_SYSTEMD_UNIT=sshd.service"
-
         output:
          elasticsearch:
            hosts: ["https://cloud.humio.com:443/api/v1/ingest/elastic-bulk"]
@@ -65,7 +73,7 @@ in let
     services.duplicity = {
       enable = true;
       root = "/tmp/db.backup";
-      targetUrl = "pydrive://duply-alpha@repominder.iam.gserviceaccount.com/plugserv_backups/db2";
+      targetUrl = "pydrive://duply-alpha@repominder.iam.gserviceaccount.com/plugserv_backups/db3";
       secretFile = pkgs.writeText "dupl.env" ''
         GOOGLE_DRIVE_ACCOUNT_KEY="${duplKey}"
       '';
@@ -77,29 +85,20 @@ in let
       # privateTmp should handle this, but this helps in case it's eg disabled upstream
       postStop = "rm /tmp/db.backup";
     };
-    systemd.services.plugserv = {
-      enable = true;
-      description = "Plugserv application";
-      after = [ "network-online.target" ];
-      wantedBy = [ "network-online.target" ];
-      path = [ pkgs.python37 pkgs.bash ];
-      serviceConfig = {
-        WorkingDirectory = "/opt/plugserv/code";
-        ExecStart = "/opt/plugserv/venv/exec gunicorn --worker-class gevent plugserv.wsgi -b '127.0.0.1:8000'";
-        Restart = "always";
-        User = "plugserv";
-        Group = "plugserv";
-      };
-    };
     users = {
       # using another user for admin tasks would be preferable, but nixops requires root ssh anyway:
       # https://github.com/NixOS/nixops/issues/730
+      users.root.extraGroups = [ "docker" ];
       users.root.openssh.authorizedKeys.keyFiles = [ ../../.ssh/id_rsa.pub ];
       users.plugserv = {
         group = "plugserv";
         isSystemUser = true;
+        uid = 497;
       };
-      groups.plugserv.members = [ "plugserv" "nginx" ];
+      groups.plugserv ={
+        members = [ "plugserv" "nginx" ];
+        gid = 499;
+      };
     };
 
     networking.firewall.allowedTCPPorts = [ 22 80 443 ];
@@ -116,10 +115,11 @@ in let
     )];
 
     environment.systemPackages = with pkgs; [
+      curl
       sqlite
       duplicity
       vim
-      (python37.withPackages(ps: with ps; [ virtualenv pip ]))
+      python3  # for ansible
     ];
   };
 in {

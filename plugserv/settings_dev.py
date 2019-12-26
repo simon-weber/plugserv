@@ -28,3 +28,5 @@ EXAMPLE_SERVE_ID = os.environ.get('EXAMPLE_SERVE_ID', 'aa5bcf1d-27cd-48d7-897e-1
 
 # disable sentry
 sentry_sdk.init(dsn='')  # noqa: F405
+
+TLD_CACHE_PATH = os.path.join(BASE_DIR, 'tld.cache')

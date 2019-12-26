@@ -1,5 +1,4 @@
 import logging
-import os
 import time
 
 from django.conf import settings
@@ -22,8 +21,7 @@ from rest_framework.renderers import TemplateHTMLRenderer
 from rest_framework.response import Response
 import tldextract
 
-# the venv dir is kept read-only in prod
-extract_tld = tldextract.TLDExtract(cache_file=os.path.join(settings.BASE_DIR, '..', 'tld.cache'))
+extract_tld = tldextract.TLDExtract(cache_file=settings.TLD_CACHE_PATH)
 tldextract = None  # prevent accidental usage
 
 logger = logging.getLogger(__name__)

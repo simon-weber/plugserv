@@ -1,8 +1,15 @@
 let
   duplKey = builtins.readFile ../secrets/pydriveprivatekey.pem;
   dbPath = "/opt/plugserv/plugserv_db.sqlite3";
+  logUnitYaml = lib: builtins.toJSON (lib.lists.flatten (builtins.map (x: [ "UNIT=${x}" "_SYSTEMD_UNIT=${x}" ]) [
+    "acme-www.plugserv.com.service"
+    "duplicity.service"
+    "docker-plugserv.service"
+    "nginx.service"
+    "sshd.service"
+  ]));
 in let
-  genericConf = { config, pkgs, ... }: {
+  genericConf = { config, pkgs, lib, ... }: {
     virtualisation.docker = {
       enable = true;
       logDriver = "journald";
@@ -47,18 +54,13 @@ in let
         access_log syslog:server=unix:/dev/log combined;
       '';
     };
+
     services.journalbeat = {
       enable = true;
       extraConfig = ''
         journalbeat.inputs:
         - paths: ["/var/log/journal"]
-          include_matches:
-            - "UNIT=acme-www.plugserv.com.service"
-            - "UNIT=duplicity.service"
-            - "UNIT=docker-plugserv.service"
-            - "_SYSTEMD_UNIT=nginx.service"
-            - "_SYSTEMD_UNIT=docker-plugserv.service"
-            - "_SYSTEMD_UNIT=sshd.service"
+          include_matches: ${(logUnitYaml lib)}
         output:
          elasticsearch:
            hosts: ["https://cloud.humio.com:443/api/v1/ingest/elastic-bulk"]
@@ -70,6 +72,7 @@ in let
            template.enabled: false
       '';
     };
+
     services.duplicity = {
       enable = true;
       root = "/tmp/db.backup";
@@ -85,6 +88,7 @@ in let
       # privateTmp should handle this, but this helps in case it's eg disabled upstream
       postStop = "rm /tmp/db.backup";
     };
+
     users = {
       # using another user for admin tasks would be preferable, but nixops requires root ssh anyway:
       # https://github.com/NixOS/nixops/issues/730

@@ -10,7 +10,11 @@
     { config, lib, pkgs, ... }:
     { deployment.targetHost = "alpha.simon.codes";
       networking.hostName = "alpha.simon.codes";
-      services.openssh.passwordAuthentication = false;
+      services.openssh = {
+        passwordAuthentication = false;
+        challengeResponseAuthentication = false;
+        extraConfig = "AllowUsers root";
+      };
 
       # from generated configuration.nix
       boot.loader.grub.device = "/dev/vda";

@@ -40,4 +40,4 @@ typing==3.6.6             # via google-measurement-protocol, prices
 urllib3==1.24.3           # via botocore, requests, sentry-sdk
 
 # The following packages are considered to be unsafe in a requirements file:
-# setuptools==41.0.1        # via tldextract
+# setuptools==42.0.2        # via tldextract

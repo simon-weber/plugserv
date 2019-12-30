@@ -31,7 +31,7 @@ jinja2==2.10.1            # via ansible
 jmespath==0.9.4
 markupsafe==1.1.1         # via jinja2
 oauthlib==3.0.1
-pip-tools==3.8.0
+pip-tools==4.3.0
 prices==1.0.0
 pycparser==2.19           # via cffi
 python-dateutil==2.8.0
@@ -50,4 +50,4 @@ typing==3.6.6
 urllib3==1.24.3
 
 # The following packages are considered to be unsafe in a requirements file:
-# setuptools==41.0.1        # via tldextract
+# setuptools==42.0.2        # via tldextract

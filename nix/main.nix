@@ -75,6 +75,7 @@ in let
 
     services.duplicity = {
       enable = true;
+      frequency = "*-*-* 00,12:00:00";
       root = "/tmp/db.backup";
       targetUrl = "pydrive://duply-alpha@repominder.iam.gserviceaccount.com/plugserv_backups/db3";
       secretFile = pkgs.writeText "dupl.env" ''

@@ -1,15 +1,16 @@
 <p style="text-align: center">
-    <span id="example-plug"></span>
+  <span id="example-plug"></span>
 </p>
 
 <script>
   window.plugserv_config = {
-      elementId: 'example-plug',
-      endpoint: '{{ serve_url }}'
+    elementId: 'example-plug',
+    endpoint: '{{ serve_url }}'
   };
 </script>
 
-<script async src="{{ js_url }}"
-              integrity="sha384-Ngv41QqyGqgFyjzQseAmANPgTafxpqZ3fRcQXsShP02KwdzUy9VzIrp/ARgmFEql"
-              crossorigin="anonymous">
+<script async
+  src="{{ js_url }}"
+  integrity="sha384-Ngv41QqyGqgFyjzQseAmANPgTafxpqZ3fRcQXsShP02KwdzUy9VzIrp/ARgmFEql"
+  crossorigin="anonymous">
 </script>{% comment %} this is only intended for use through the snippet custom tag {% endcomment %}

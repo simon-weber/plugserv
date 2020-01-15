@@ -9,14 +9,14 @@ Your Plugserv id is: <code>{{ user.serve_id }}</code>
 
 <p>
 Here is an example snippet to include in your sites:
-<pre><code>{% snippet request True user.serve_id %}</code></pre>
+<pre><code>{% snippet request True True user.serve_id %}</code></pre>
 </p>
 
 {% if plugs %}
 <p>
 Here is a live example using that snippet:
 </p>
-{% snippet request False user.serve_id %}
+{% snippet request False True user.serve_id %}
 {% endif %}
 
 For more details on setting up the snippet, visit <a href="{% url 'docs' %}">the documentation</a>.

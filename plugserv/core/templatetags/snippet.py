@@ -12,12 +12,13 @@ register = template.Library()
 
 
 @register.simple_tag
-def snippet(request, escaped, serve_id=None):
+def snippet(request, escaped, include_powered_by=True, serve_id=None):
     if serve_id is None:
         serve_id = settings.EXAMPLE_SERVE_ID
     context = {
         'serve_url': request.build_absolute_uri(reverse('serve_plug', args=(serve_id, ))),
         'js_url': request.build_absolute_uri(reverse('js_v1')),
+        'include_powered_by': include_powered_by,
     }
 
     output = loader.get_template('snippet.html').render(context, request)

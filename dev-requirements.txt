@@ -19,7 +19,7 @@ django-allauth==0.39.1
 django-amazon-ses==2.1.1
 django-bootstrap-form==3.4
 django-crispy-forms==1.7.2
-django==2.2.3
+django==2.2.10
 djangorestframework==3.9.3
 docutils==0.14
 gevent==1.4.0
@@ -50,4 +50,4 @@ typing==3.6.6
 urllib3==1.24.3
 
 # The following packages are considered to be unsafe in a requirements file:
-# setuptools==42.0.2        # via tldextract
+# setuptools

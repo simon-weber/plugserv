@@ -10,6 +10,7 @@
     { config, lib, pkgs, ... }:
     { deployment.targetHost = "alpha.simon.codes";
       networking.hostName = "alpha";
+      networking.domain = "simon.codes";
       services.openssh = {
         passwordAuthentication = false;
         challengeResponseAuthentication = false;

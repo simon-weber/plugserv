@@ -4,6 +4,7 @@ let
   logUnitYaml = lib: builtins.toJSON (lib.lists.flatten (builtins.map (x: [ "UNIT=${x}" "_SYSTEMD_UNIT=${x}" ]) [
     "acme-www.plugserv.com.service"
     "duplicity.service"
+    "docker.service"
     "docker-plugserv.service"
     "nginx.service"
     "sshd.service"

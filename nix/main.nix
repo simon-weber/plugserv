@@ -90,7 +90,8 @@ in let
       secretFile = pkgs.writeText "dupl.env" ''
         GOOGLE_DRIVE_ACCOUNT_KEY="${duplKey}"
       '';
-      extraFlags = ["--no-encryption"];
+      # https://bugs.launchpad.net/duplicity/+bug/667885
+      extraFlags = ["--no-encryption" "--allow-source-mismatch"];
     };
     systemd.services.duplicity = {
       path = [ pkgs.bash pkgs.sqlite ];

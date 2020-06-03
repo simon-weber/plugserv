@@ -9,7 +9,7 @@
   alpha-simon-codes =
     { config, lib, pkgs, ... }:
     { deployment.targetHost = "alpha.simon.codes";
-      networking.hostName = "alpha.simon.codes";
+      networking.hostName = "alpha";
       services.openssh = {
         passwordAuthentication = false;
         challengeResponseAuthentication = false;

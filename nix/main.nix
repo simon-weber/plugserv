@@ -117,6 +117,9 @@ in let
 
     networking.firewall.allowedTCPPorts = [ 22 80 443 ];
 
+    security.acme.acceptTerms = true;
+    security.acme.email = "domains@simonmweber.com";
+
     nixpkgs.config = {
       allowUnfree = true;
     };

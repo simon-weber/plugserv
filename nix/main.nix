@@ -20,6 +20,20 @@ in let
       ports = [ "127.0.0.1:8000:8000" ];
       volumes = [ "/opt/plugserv:/opt/plugserv" ];
     };
+    docker-containers.plugserv_cleanup = {
+      image = "plugserv:latest";
+      volumes = [ "/opt/plugserv:/opt/plugserv" ];
+      entrypoint = "python";
+      cmd = [ "manage.py" "clearsessions" ];
+    };
+    systemd.services.docker-plugserv_cleanup = {
+      startAt = "*-*-* 07:30:00";
+      wantedBy = pkgs.lib.mkForce [];
+      postStop = "${pkgs.sqlite}/bin/sqlite3 ${dbPath} 'VACUUM;'";
+      serviceConfig = {
+        Restart = pkgs.lib.mkForce "no";
+      };
+    };
 
     services.nginx = {
       enable = true;
@@ -139,6 +153,9 @@ in let
       duplicity
       vim
       python3  # for ansible
+      htop
+      iotop
+      sysstat
     ];
   };
 in {

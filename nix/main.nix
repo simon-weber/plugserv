@@ -29,8 +29,8 @@ in let
     systemd.services.docker-plugserv_cleanup = {
       startAt = "*-*-* 07:30:00";
       wantedBy = pkgs.lib.mkForce [];
-      postStop = "${pkgs.sqlite}/bin/sqlite3 ${dbPath} 'VACUUM;'";
       serviceConfig = {
+        ExecStopPost = pkgs.lib.mkForce [ "-${pkgs.docker}/bin/docker rm -f %n" "${pkgs.sqlite}/bin/sqlite3 ${dbPath} 'VACUUM;'" ];
         Restart = pkgs.lib.mkForce "no";
       };
     };

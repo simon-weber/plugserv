@@ -1,5 +1,6 @@
 let
   duplKey = builtins.readFile ../secrets/pydriveprivatekey.pem;
+  opsgridToken = builtins.readFile ../secrets/opsgrid_token.txt;
   dbPath = "/opt/plugserv/plugserv_db.sqlite3";
   logUnitYaml = lib: builtins.toJSON (lib.lists.flatten (builtins.map (x: [ "UNIT=${x}" "_SYSTEMD_UNIT=${x}" ]) [
     "acme-www.plugserv.com.service"
@@ -92,6 +93,9 @@ in let
       enable = true;
     };
     systemd.services.telegraf = {
+      environment = {
+        OPSGRID_INGEST_TOKEN = opsgridToken;
+      };
       serviceConfig = {
         ExecStart= pkgs.lib.mkForce ''${pkgs.telegraf}/bin/telegraf -config "${./telegraf.conf}"'';
       };

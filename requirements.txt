@@ -10,17 +10,17 @@ botocore==1.12.169        # via boto3, s3transfer
 certifi==2019.3.9         # via requests, sentry-sdk
 chardet==3.0.4            # via requests
 defusedxml==0.6.0         # via python3-openid
-django-allauth==0.39.1
-django-amazon-ses==2.1.1
-django-bootstrap-form==3.4
-django-crispy-forms==1.7.2
-django==2.2.10
-djangorestframework==3.9.3
+django-allauth==0.39.1    # via -r requirements.in
+django-amazon-ses==2.1.1  # via -r requirements.in
+django-bootstrap-form==3.4  # via -r requirements.in
+django-crispy-forms==1.7.2  # via -r requirements.in
+django==2.2.10            # via -r requirements.in, django-allauth, django-amazon-ses, django-bootstrap-form
+djangorestframework==3.9.3  # via -r requirements.in
 docutils==0.14            # via botocore
 gevent==1.4.0             # via gunicorn
-google-measurement-protocol==1.0.0
+google-measurement-protocol==1.0.0  # via -r requirements.in
 greenlet==0.4.15          # via gevent
-gunicorn[gevent]==19.9.0
+gunicorn[gevent]==19.9.0  # via -r requirements.in
 idna==2.8                 # via requests, tldextract
 jmespath==0.9.4           # via boto3, botocore
 oauthlib==3.0.1           # via requests-oauthlib
@@ -32,10 +32,10 @@ requests-file==1.4.3      # via tldextract
 requests-oauthlib==1.2.0  # via django-allauth
 requests==2.21.0          # via django-allauth, google-measurement-protocol, requests-file, requests-oauthlib, tldextract
 s3transfer==0.2.1         # via boto3
-sentry-sdk==0.9.0
+sentry-sdk==0.9.0         # via -r requirements.in
 six==1.12.0               # via python-dateutil, requests-file
 sqlparse==0.3.0           # via django
-tldextract==2.2.1
+tldextract==2.2.1         # via -r requirements.in
 typing==3.6.6             # via google-measurement-protocol, prices
 urllib3==1.24.3           # via botocore, requests, sentry-sdk
 

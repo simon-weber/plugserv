@@ -10,7 +10,7 @@ X_FRAME_OPTIONS = 'SAMEORIGIN'
 USE_X_FORWARDED_HOST = False
 SECURE_PROXY_SSL_HEADER = None
 
-ALLOWED_HOSTS.append('*')
+ALLOWED_HOSTS = ['*']
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 

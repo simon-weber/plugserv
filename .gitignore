@@ -1,4 +1,4 @@
-docker-archive.tar
+app-archive.tar
 
 plugserv_db.sqlite3
 ansible/*.tar

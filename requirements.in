@@ -6,5 +6,6 @@ django-crispy-forms
 djangorestframework
 google-measurement-protocol
 gunicorn[gevent]
+s3cmd
 sentry-sdk
 tldextract

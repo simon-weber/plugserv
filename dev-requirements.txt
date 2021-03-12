@@ -34,13 +34,15 @@ oauthlib==3.0.1           # via -r requirements.txt, requests-oauthlib
 pip-tools==5.3.1          # via -r dev-requirements.in
 prices==1.0.0             # via -r requirements.txt, google-measurement-protocol
 pycparser==2.19           # via cffi
-python-dateutil==2.8.0    # via -r requirements.txt, botocore
+python-dateutil==2.8.0    # via -r requirements.txt, botocore, s3cmd
+python-magic==0.4.22      # via -r requirements.txt, s3cmd
 python3-openid==3.1.0     # via -r requirements.txt, django-allauth
 pytz==2019.1              # via -r requirements.txt, babel, django
 pyyaml==5.1.1             # via ansible
 requests-file==1.4.3      # via -r requirements.txt, tldextract
 requests-oauthlib==1.2.0  # via -r requirements.txt, django-allauth
 requests==2.21.0          # via -r requirements.txt, django-allauth, google-measurement-protocol, requests-file, requests-oauthlib, tldextract
+s3cmd==2.1.0              # via -r requirements.txt
 s3transfer==0.2.1         # via -r requirements.txt, boto3
 sentry-sdk==0.9.0         # via -r requirements.txt
 six==1.12.0               # via -r requirements.txt, cryptography, pip-tools, python-dateutil, requests-file

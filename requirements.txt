@@ -25,12 +25,14 @@ idna==2.8                 # via requests, tldextract
 jmespath==0.9.4           # via boto3, botocore
 oauthlib==3.0.1           # via requests-oauthlib
 prices==1.0.0             # via google-measurement-protocol
-python-dateutil==2.8.0    # via botocore
+python-dateutil==2.8.0    # via botocore, s3cmd
+python-magic==0.4.22      # via s3cmd
 python3-openid==3.1.0     # via django-allauth
 pytz==2019.1              # via babel, django
 requests-file==1.4.3      # via tldextract
 requests-oauthlib==1.2.0  # via django-allauth
 requests==2.21.0          # via django-allauth, google-measurement-protocol, requests-file, requests-oauthlib, tldextract
+s3cmd==2.1.0              # via -r requirements.in
 s3transfer==0.2.1         # via boto3
 sentry-sdk==0.9.0         # via -r requirements.in
 six==1.12.0               # via python-dateutil, requests-file

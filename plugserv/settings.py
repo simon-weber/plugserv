@@ -6,15 +6,6 @@ from sentry_sdk.integrations.django import DjangoIntegration
 from sentry_sdk.integrations.logging import LoggingIntegration
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SECRETS_DIR = os.path.join(BASE_DIR, 'secrets')
-
-
-def get_secret(filename):
-    with open(os.path.join(SECRETS_DIR, filename)) as f:
-        return f.read().strip()
-
-
-SECRET_KEY = get_secret('secret_key.txt')
 
 DEBUG = False
 SECURE_CONTENT_TYPE_NOSNIFF = True
@@ -24,7 +15,6 @@ CSRF_COOKIE_SECURE = True
 CSRF_COOKIE_HTTPONLY = True
 X_FRAME_OPTIONS = 'DENY'
 
-ALLOWED_HOSTS = ['www.plugserv.com']
 USE_X_FORWARDED_HOST = True
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
@@ -135,7 +125,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/assets/'
-STATIC_ROOT = '/opt/plugserv/assets'
+STATIC_ROOT = '/opt/assets'
 
 LOGGING = {
     'version': 1,
@@ -182,8 +172,6 @@ LOGGING = {
 }
 
 EMAIL_BACKEND = 'django_amazon_ses.EmailBackend'
-AWS_ACCESS_KEY_ID = get_secret('ses.id')
-AWS_SECRET_ACCESS_KEY = get_secret('ses.key')
 DEFAULT_FROM_EMAIL = 'Plugserv <noreply@plugserv.com>'
 ADMINS = (('Simon', 'simon@simonmweber.com'),)
 SERVER_EMAIL = DEFAULT_FROM_EMAIL
@@ -198,18 +186,6 @@ ACCOUNT_FORMS = {
     'signup': 'plugserv.core.forms.SignupFormUsernameFocus',
 }
 LOGIN_REDIRECT_URL = '/api/plugs/hlist'
-
-sentry_logging = LoggingIntegration(
-    level=logging.INFO,
-    event_level=logging.WARNING,
-)
-sentry_sdk.init(
-    dsn=get_secret('sentry.dsn'),
-    integrations=[
-        DjangoIntegration(),
-        sentry_logging,
-    ],
-)
 
 SEND_GA_EVENTS = True
 GA_TRACKING_ID = 'UA-142386700-3'

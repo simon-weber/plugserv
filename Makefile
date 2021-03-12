@@ -1,28 +1,19 @@
-deploy-prod:
-	 ansible-playbook -v -i ansible/production ansible/deploy.yml
+# Using an archive sourced from git avoids unintended files in the image.
+# git archive doesn't easily support reproducible builds (which are helpful for the docker cache) so it's built manually.
+build-cluster:
+	git ls-files plugserv/ scripts/ manage.py | tar cTf - app-archive.tar --owner=0 --group=0 --mtime=0 --sort=name && \
+	REPO=registry.gitlab.com/simon-weber/docker && \
+	docker build -t plugserv:k8s -t $$REPO/plugserv:k8s .
 
-deploy-dev:
-	 ansible-playbook -v -i ansible/dev ansible/deploy.yml
-
-nix-deploy-prod:
-	nixops deploy --include alpha-simon-codes -d plugserv
-
-nix-deploy-dev:
-	nixops deploy --include virtualbox -d plugserv
+deploy-cluster: build-cluster
+	REPO=registry.gitlab.com/simon-weber/docker && \
+	docker push $$REPO/plugserv:k8s && \
+	envsubst < kube/secrets.yaml.envsubst | kubectl apply -f - && \
+	kubectl apply -f kube/deployment.yaml && \
+	kubectl rollout restart deployment plugserv
 
 pip-compile:
 	pip-compile -r requirements.in && pip-compile -r dev-requirements.in && pip-sync dev-requirements.txt
 
 serve:
 	python manage.py runserver 0.0.0.0:8000
-
-# also consider vacuuming the journal:
-#    journalctl --vacuum-size=500M
-# and cleaning old nix generations:
-#    nix-env --list-generations --profile /nix/var/nix/profiles/system
-#  then
-#    nix-collect-garbage --delete-older-than 123 --dry-run
-#  or just
-#    nix-collect-garbage --delete-older-than 120d --dry-run
-cleanup-prod:
-	ansible all -i ansible/production -m shell -a "nix-collect-garbage; docker system prune --force; df -h"

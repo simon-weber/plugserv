@@ -57,7 +57,7 @@ spec:
       - name: registry-credentials
       initContainers:
       - name: init
-        image: registry.gitlab.com/simon-weber/docker/plugserv:k8s
+        image: ${DOCKER_REPO}/plugserv:k8s
         imagePullPolicy: Always
         command: ['./scripts/init.sh']
         envFrom:
@@ -73,7 +73,7 @@ spec:
           mountPath: /opt/assets
       containers:
       - name: web
-        image: registry.gitlab.com/simon-weber/docker/plugserv:k8s
+        image: ${DOCKER_REPO}/plugserv:k8s
         imagePullPolicy: Always
         envFrom:
           - secretRef:
@@ -131,7 +131,7 @@ spec:
             kubernetes.io/hostname: kilo
           containers:
           - name: cleanup
-            image: registry.gitlab.com/simon-weber/docker/plugserv:k8s
+            image: ${DOCKER_REPO}/plugserv:k8s
             command: ["./scripts/cleanup.sh"]
             envFrom:
               - secretRef:
@@ -168,7 +168,7 @@ spec:
             kubernetes.io/hostname: kilo
           containers:
           - name: cleanup
-            image: registry.gitlab.com/simon-weber/docker/plugserv:k8s
+            image: ${DOCKER_REPO}/plugserv:k8s
             command: ["./scripts/backup.sh"]
             envFrom:
               - secretRef:

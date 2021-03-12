@@ -2,14 +2,12 @@
 # git archive doesn't easily support reproducible builds (which are helpful for the docker cache) so it's built manually.
 build-cluster:
 	git ls-files plugserv/ scripts/ manage.py | tar cTf - app-archive.tar --owner=0 --group=0 --mtime=0 --sort=name && \
-	REPO=registry.gitlab.com/simon-weber/docker && \
-	docker build -t plugserv:k8s -t $$REPO/plugserv:k8s .
+	docker build -t plugserv:k8s -t $$DOCKER_REPO/plugserv:k8s .
 
 deploy-cluster: build-cluster
-	REPO=registry.gitlab.com/simon-weber/docker && \
-	docker push $$REPO/plugserv:k8s && \
+	docker push $$DOCKER_REPO/plugserv:k8s && \
 	envsubst < kube/secrets.yaml.envsubst | kubectl apply -f - && \
-	kubectl apply -f kube/deployment.yaml && \
+	envsubst < kube/deployment.yaml.envsubst | kubectl apply -f - && \
 	kubectl rollout restart deployment plugserv
 
 pip-compile:

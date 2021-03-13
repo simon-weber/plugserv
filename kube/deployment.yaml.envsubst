@@ -8,7 +8,7 @@ spec:
   tls:
     - hosts:
         - www.plugserv.com
-      secretName: tls-origin-cert
+      secretName: plugserv-cert
   rules:
     - host: www.plugserv.com
       http:

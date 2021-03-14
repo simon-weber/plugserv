@@ -10,3 +10,5 @@ s3_path="plugserv/$(date +'%Y-%m-%d_%X')_${db_name}"
 
 s3cmd --bucket-location=fr-par --host=https://s3.fr-par.scw.cloud --host-bucket=https://s3.fr-par.scw.cloud \
   put "${db_path}" "s3://simoncodes-sqlite/${s3_path}"
+
+wget https://hc-ping.com/${HC_ID_BACKUP} -nv -T 10 -t 5 -O /dev/null

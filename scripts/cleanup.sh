@@ -17,3 +17,5 @@ transaction.commit()" \
   | python manage.py shell
 
 echo "bytes after: $(stat --printf="%s" "${db_path}")"
+
+wget https://hc-ping.com/${HC_ID_CLEANUP} -nv -T 10 -t 5 -O /dev/null

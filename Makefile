@@ -6,8 +6,8 @@ build-cluster:
 
 deploy-cluster: build-cluster
 	docker push $$DOCKER_REPO/plugserv:k8s && \
-	envsubst < kube/secrets.yaml.envsubst | kubectl apply -f - && \
-	envsubst < kube/deployment.yaml.envsubst | kubectl apply -f - && \
+	envsubst < kube/secrets.env.yaml | kubectl apply -f - && \
+	envsubst < kube/deployment.env.yaml | kubectl apply -f - && \
 	kubectl rollout restart deployment plugserv
 
 pip-compile:

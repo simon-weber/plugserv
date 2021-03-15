@@ -37,6 +37,15 @@ spec:
     - name: static
       port: 80
 ---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: plugserv-config
+data:
+  HC_ID_BACKUP: "${HC_ID_BACKUP}"
+  HC_ID_CLEANUP: "${HC_ID_CLEANUP}"
+  SITE: "www.plugserv.com"
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -63,9 +72,8 @@ spec:
         envFrom:
           - secretRef:
               name: plugserv-web
-        env:
-          - name: SITE
-            value: www.plugserv.com
+          - configMapRef:
+              name: plugserv-config
         volumeMounts:
         - name: appvol
           mountPath: /opt/plugserv
@@ -78,9 +86,8 @@ spec:
         envFrom:
           - secretRef:
               name: plugserv-web
-        env:
-          - name: SITE
-            value: www.plugserv.com
+          - configMapRef:
+              name: plugserv-config
         volumeMounts:
         - name: appvol
           mountPath: /opt/plugserv
@@ -136,9 +143,8 @@ spec:
             envFrom:
               - secretRef:
                   name: plugserv-web
-            env:
-              - name: SITE
-                value: www.plugserv.com
+              - configMapRef:
+                  name: plugserv-config
             volumeMounts:
             - name: appvol
               mountPath: /opt/plugserv
@@ -175,9 +181,8 @@ spec:
                   name: plugserv-web
               - secretRef:
                   name: scaleway-s3-secret
-            env:
-              - name: SITE
-                value: www.plugserv.com
+              - configMapRef:
+                  name: plugserv-config
             volumeMounts:
             - name: appvol
               mountPath: /opt/plugserv

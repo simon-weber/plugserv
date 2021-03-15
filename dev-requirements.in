@@ -1,3 +1,5 @@
 -r requirements.txt
 ansible
 pip-tools
+pre-commit
+pyyaml

@@ -4,8 +4,6 @@ set -e
 
 chmod 770 /opt/plugserv
 
-mkdir -p /opt/plugserv/assets
-chmod 750 /opt/plugserv/assets
 python manage.py collectstatic -c --noinput
 
 python manage.py migrate --noinput

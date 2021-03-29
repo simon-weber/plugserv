@@ -14,8 +14,8 @@ django-allauth==0.39.1    # via -r requirements.in
 django-amazon-ses==2.1.1  # via -r requirements.in
 django-bootstrap-form==3.4  # via -r requirements.in
 django-crispy-forms==1.7.2  # via -r requirements.in
-django==2.2.10            # via -r requirements.in, django-allauth, django-amazon-ses, django-bootstrap-form
-djangorestframework==3.9.3  # via -r requirements.in
+django==2.2.19            # via -r requirements.in, django-allauth, django-amazon-ses, django-bootstrap-form, djangorestframework
+djangorestframework==3.12.2  # via -r requirements.in
 docutils==0.14            # via botocore
 gevent==1.4.0             # via gunicorn
 google-measurement-protocol==1.0.0  # via -r requirements.in

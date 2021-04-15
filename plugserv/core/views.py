@@ -16,7 +16,7 @@ from .models import Plug, PlugSerializer, User, UserSerializer
 from rest_framework.reverse import reverse
 from rest_framework import viewsets, mixins
 from rest_framework import permissions
-from rest_framework.decorators import list_route, detail_route
+from rest_framework.decorators import action, renderer_classes
 from rest_framework.renderers import TemplateHTMLRenderer
 from rest_framework.response import Response
 import tldextract
@@ -48,17 +48,17 @@ class UserSelfViewSet(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, viewse
     def list(self, request):
         return redirect(reverse('user-detail', args=[request.user.id], request=request))
 
-    @list_route(renderer_classes=[TemplateHTMLRenderer])
+    @action(detail=False, renderer_classes=[TemplateHTMLRenderer])
     def hlist(self, request, *args, **kwargs):
         return redirect(reverse('user-hretrieve', args=[request.user.id], request=request))
 
-    @detail_route(renderer_classes=[TemplateHTMLRenderer])
+    @action(detail=True, renderer_classes=[TemplateHTMLRenderer])
     def hretrieve(self, request, *args, **kwargs):
         instance = self.get_object()
         serializer = self.get_serializer(instance)
         return Response({'serializer': serializer})
 
-    @detail_route(renderer_classes=[TemplateHTMLRenderer], methods=['post'])
+    @action(detail=True, renderer_classes=[TemplateHTMLRenderer], methods=['post'])
     def hpatch(self, request, *args, **kwargs):
         instance = self.get_object()
         serializer = self.get_serializer(instance, data=request.data, partial=True)
@@ -95,19 +95,19 @@ class PlugViewSet(viewsets.ModelViewSet):
     # I'm not sure if I'm missing something, but it seems like DRF's mixins aren't built for use with html at all.
     # These are essentially copied from https://github.com/encode/django-rest-framework/blob/master/rest_framework/mixins.py
     #  except they keep the serializer around rather than throw it away when returning a response.
-    @list_route(renderer_classes=[TemplateHTMLRenderer], template_name='plugs.html')
+    @action(detail=False, renderer_classes=[TemplateHTMLRenderer], template_name='plugs.html')
     def hlist(self, request, *args, **kwargs):
         queryset = self.filter_queryset(self.get_queryset())
 
         # note that this ignores pagination
         return Response({'plugs': queryset})
 
-    @list_route(renderer_classes=[TemplateHTMLRenderer])
+    @action(detail=False, renderer_classes=[TemplateHTMLRenderer])
     def hnew(self, request, *args, **kwargs):
         serializer = self.get_serializer()
         return Response({'serializer': serializer})
 
-    @list_route(renderer_classes=[TemplateHTMLRenderer], methods=['post'])
+    @action(detail=False, renderer_classes=[TemplateHTMLRenderer], methods=['post'])
     def hcreate(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         if not serializer.is_valid():
@@ -115,19 +115,19 @@ class PlugViewSet(viewsets.ModelViewSet):
         self.perform_create(serializer)
         return redirect(reverse('plug-hlist', request=request))
 
-    @detail_route(renderer_classes=[TemplateHTMLRenderer], methods=['post'])
+    @action(detail=True, renderer_classes=[TemplateHTMLRenderer], methods=['post'])
     def hdestroy(self, request, *args, **kwargs):
         instance = self.get_object()
         self.perform_destroy(instance)
         return redirect(reverse('plug-hlist', request=request))
 
-    @detail_route(renderer_classes=[TemplateHTMLRenderer])
+    @action(detail=True, renderer_classes=[TemplateHTMLRenderer])
     def hretrieve(self, request, *args, **kwargs):
         instance = self.get_object()
         serializer = self.get_serializer(instance)
         return Response({'serializer': serializer, 'plug': instance})
 
-    @detail_route(renderer_classes=[TemplateHTMLRenderer], methods=['post'])
+    @action(detail=True, renderer_classes=[TemplateHTMLRenderer], methods=['post'])
     def hpatch(self, request, *args, **kwargs):
         instance = self.get_object()
         serializer = self.get_serializer(instance, data=request.data, partial=True)

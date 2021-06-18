@@ -5,8 +5,8 @@
 #    pip-compile requirements.in
 #
 babel==2.7.0              # via prices
-boto3==1.9.169            # via django-amazon-ses
-botocore==1.12.169        # via boto3, s3transfer
+boto3==1.17.97            # via django-amazon-ses
+botocore==1.20.97         # via boto3, s3transfer
 certifi==2019.3.9         # via requests, sentry-sdk
 chardet==3.0.4            # via requests
 defusedxml==0.6.0         # via python3-openid
@@ -14,9 +14,8 @@ django-allauth==0.39.1    # via -r requirements.in
 django-amazon-ses==2.1.1  # via -r requirements.in
 django-bootstrap-form==3.4  # via -r requirements.in
 django-crispy-forms==1.7.2  # via -r requirements.in
-django==2.2.19            # via -r requirements.in, django-allauth, django-amazon-ses, django-bootstrap-form, djangorestframework
+django==2.2.24            # via -r requirements.in, django-allauth, django-amazon-ses, django-bootstrap-form, djangorestframework
 djangorestframework==3.12.2  # via -r requirements.in
-docutils==0.14            # via botocore
 gevent==1.4.0             # via gunicorn
 google-measurement-protocol==1.0.0  # via -r requirements.in
 greenlet==0.4.15          # via gevent
@@ -31,15 +30,15 @@ python3-openid==3.1.0     # via django-allauth
 pytz==2019.1              # via babel, django
 requests-file==1.4.3      # via tldextract
 requests-oauthlib==1.2.0  # via django-allauth
-requests==2.21.0          # via django-allauth, google-measurement-protocol, requests-file, requests-oauthlib, tldextract
+requests==2.25.1          # via -r requirements.in, django-allauth, google-measurement-protocol, requests-file, requests-oauthlib, tldextract
 s3cmd==2.1.0              # via -r requirements.in
-s3transfer==0.2.1         # via boto3
+s3transfer==0.4.2         # via boto3
 sentry-sdk==0.9.0         # via -r requirements.in
 six==1.12.0               # via python-dateutil, requests-file
 sqlparse==0.3.0           # via django
 tldextract==2.2.1         # via -r requirements.in
 typing==3.6.6             # via google-measurement-protocol, prices
-urllib3==1.24.3           # via botocore, requests, sentry-sdk
+urllib3==1.26.5           # via -r requirements.in, botocore, requests, sentry-sdk
 
 # The following packages are considered to be unsafe in a requirements file:
 # setuptools

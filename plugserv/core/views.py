@@ -3,7 +3,7 @@ import time
 
 from django.conf import settings
 from django.shortcuts import redirect
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.views.generic import TemplateView
 from django.views.decorators.http import require_http_methods
 from django.views.decorators.csrf import csrf_exempt
@@ -16,7 +16,7 @@ from .models import Plug, PlugSerializer, User, UserSerializer
 from rest_framework.reverse import reverse
 from rest_framework import viewsets, mixins
 from rest_framework import permissions
-from rest_framework.decorators import action, renderer_classes
+from rest_framework.decorators import action
 from rest_framework.renderers import TemplateHTMLRenderer
 from rest_framework.response import Response
 import tldextract
@@ -199,6 +199,9 @@ def serve_plug(request, serve_id):
     origin = _get_origin(request)
 
     plugs = list(Plug.objects.filter(owner__serve_id=serve_id).exclude(domain=origin).order_by('id'))
+    if not plugs:
+        return HttpResponse(status=204)
+
     days_into_year = time.localtime().tm_yday
     plug = plugs[days_into_year % len(plugs)]
     logger.info("serving %r to %r", plug, origin)

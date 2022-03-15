@@ -5,20 +5,23 @@
 #    pip-compile dev-requirements.in
 #
 appdirs==1.4.4            # via virtualenv
+asgiref==3.5.0            # via -r requirements.txt, django
 babel==2.7.0              # via -r requirements.txt, prices
 boto3==1.17.97            # via -r requirements.txt, django-amazon-ses
 botocore==1.20.97         # via -r requirements.txt, boto3, s3transfer
 certifi==2019.3.9         # via -r requirements.txt, requests, sentry-sdk
+cffi==1.15.0              # via -r requirements.txt, cryptography
 cfgv==3.2.0               # via pre-commit
 chardet==3.0.4            # via -r requirements.txt, requests
 click==7.0                # via pip-tools
+cryptography==36.0.1      # via -r requirements.txt, pyjwt
 defusedxml==0.6.0         # via -r requirements.txt, python3-openid
 distlib==0.3.1            # via virtualenv
-django-allauth==0.39.1    # via -r requirements.txt
+django-allauth==0.49.0    # via -r requirements.txt
 django-amazon-ses==2.1.1  # via -r requirements.txt
 django-bootstrap-form==3.4  # via -r requirements.txt
-django-crispy-forms==1.7.2  # via -r requirements.txt
-django==2.2.24            # via -r requirements.txt, django-allauth, django-amazon-ses, django-bootstrap-form, djangorestframework
+django-crispy-forms==1.14.0  # via -r requirements.txt
+django==3.2.12            # via -r requirements.txt, django-allauth, django-amazon-ses, django-bootstrap-form, djangorestframework
 djangorestframework==3.12.2  # via -r requirements.txt
 filelock==3.0.12          # via virtualenv
 gevent==1.4.0             # via -r requirements.txt, gunicorn
@@ -34,6 +37,8 @@ oauthlib==3.0.1           # via -r requirements.txt, requests-oauthlib
 pip-tools==5.3.1          # via -r dev-requirements.in
 pre-commit==2.11.1        # via -r dev-requirements.in
 prices==1.0.0             # via -r requirements.txt, google-measurement-protocol
+pycparser==2.21           # via -r requirements.txt, cffi
+pyjwt[crypto]==2.3.0      # via -r requirements.txt, django-allauth
 python-dateutil==2.8.0    # via -r requirements.txt, botocore, s3cmd
 python-magic==0.4.22      # via -r requirements.txt, s3cmd
 python3-openid==3.1.0     # via -r requirements.txt, django-allauth
@@ -49,7 +54,7 @@ six==1.12.0               # via -r requirements.txt, pip-tools, python-dateutil,
 sqlparse==0.3.0           # via -r requirements.txt, django
 tldextract==2.2.1         # via -r requirements.txt
 toml==0.10.2              # via pre-commit
-typing-extensions==3.7.4.3  # via importlib-metadata
+typing-extensions==4.1.1  # via -r requirements.txt, asgiref, importlib-metadata
 typing==3.6.6             # via -r requirements.txt, google-measurement-protocol, prices
 urllib3==1.26.5           # via -r requirements.txt, botocore, requests, sentry-sdk
 virtualenv==20.4.2        # via pre-commit

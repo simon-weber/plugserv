@@ -19,11 +19,14 @@ wheels = [
 
 [[package]]
 name = "asgiref"
-version = "3.5.0"
+version = "3.9.1"
 source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/ea/2b/3face3a7241f61dc1c58dbe243cc02c15c61ccdcafebc4406f7bb40ce731/asgiref-3.5.0.tar.gz", hash = "sha256:2f8abc20f7248433085eda803936d98992f1343ddb022065779f37c5da0181d0", size = 31920, upload-time = "2022-01-22T16:58:11.11Z" }
+dependencies = [
+    { name = "typing-extensions", marker = "python_full_version < '3.11' and implementation_name == 'cpython' and sys_platform == 'linux'" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/90/61/0aa957eec22ff70b830b22ff91f825e70e1ef732c06666a805730f28b36b/asgiref-3.9.1.tar.gz", hash = "sha256:a5ab6582236218e5ef1648f242fd9f10626cfd4de8dc377db215d5d5098e3142", size = 36870, upload-time = "2025-07-08T09:07:43.344Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/0b/9f/5f3b91391578312827561b669a0397d58535b4e82966c8f1667525c7d563/asgiref-3.5.0-py3-none-any.whl", hash = "sha256:88d59c13d634dcffe0510be048210188edd79aeccb6a6c9028cdad6f31d730a9", size = 22719, upload-time = "2022-01-22T16:58:09.597Z" },
+    { url = "https://files.pythonhosted.org/packages/7c/3c/0464dcada90d5da0e71018c04a140ad6349558afb30b3051b4264cc5b965/asgiref-3.9.1-py3-none-any.whl", hash = "sha256:f3bba7092a48005b5f5bacd747d36ee4a5a61f4a269a6df590b43144355ebd2c", size = 23790, upload-time = "2025-07-08T09:07:41.548Z" },
 ]
 
 [[package]]
@@ -68,11 +71,11 @@ wheels = [
 
 [[package]]
 name = "certifi"
-version = "2019.3.9"
+version = "2025.7.14"
 source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/06/b8/d1ea38513c22e8c906275d135818fee16ad8495985956a9b7e2bb21942a1/certifi-2019.3.9.tar.gz", hash = "sha256:b26104d6835d1f5e49452a26eb2ff87fe7090b89dfcaee5ea2212697e1e1d7ae", size = 158179, upload-time = "2019-03-09T11:49:30.724Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/b3/76/52c535bcebe74590f296d6c77c86dabf761c41980e1347a2422e4aa2ae41/certifi-2025.7.14.tar.gz", hash = "sha256:8ea99dbdfaaf2ba2f9bac77b9249ef62ec5218e7c2b2e903378ed5fccf765995", size = 163981, upload-time = "2025-07-14T03:29:28.449Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/60/75/f692a584e85b7eaba0e03827b3d51f45f571c2e793dd731e598828d380aa/certifi-2019.3.9-py2.py3-none-any.whl", hash = "sha256:59b7658e26ca9c7339e00f8f4636cdfe59d34fa37b9b04f6f9e9926b3cece1a5", size = 158601, upload-time = "2019-03-09T11:49:27.654Z" },
+    { url = "https://files.pythonhosted.org/packages/4f/52/34c6cf5bb9285074dc3531c437b3919e825d976fde097a7a73f79e726d03/certifi-2025.7.14-py3-none-any.whl", hash = "sha256:6b31f564a415d79ee77df69d757bb49a5bb53bd9f756cbbe24394ffd6fc1f4b2", size = 162722, upload-time = "2025-07-14T03:29:26.863Z" },
 ]
 
 [[package]]
@@ -152,16 +155,15 @@ wheels = [
 
 [[package]]
 name = "django"
-version = "3.2.12"
+version = "4.2.23"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "asgiref", marker = "implementation_name == 'cpython' and sys_platform == 'linux'" },
-    { name = "pytz", marker = "implementation_name == 'cpython' and sys_platform == 'linux'" },
     { name = "sqlparse", marker = "implementation_name == 'cpython' and sys_platform == 'linux'" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/83/d9/7f28811ff78ce1903dc9a32ac439e4e6c98298cd2e99cb01f528e51dd796/Django-3.2.12.tar.gz", hash = "sha256:9772e6935703e59e993960832d66a614cf0233a1c5123bc6224ecc6ad69e41e2", size = 9812448, upload-time = "2022-02-01T07:56:32Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/b5/20/02242739714eb4e53933d6c0fe2c57f41feb449955b0aa39fc2da82b8f3c/django-4.2.23.tar.gz", hash = "sha256:42fdeaba6e6449d88d4f66de47871015097dc6f1b87910db00a91946295cfae4", size = 10448384, upload-time = "2025-06-10T10:06:34.574Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/9c/0e/02b7eff8fac2c25ede489933d4e899f6e6f283ae8eaf5189431057c8d406/Django-3.2.12-py3-none-any.whl", hash = "sha256:9b06c289f9ba3a8abea16c9c9505f25107809fb933676f6c891ded270039d965", size = 7887444, upload-time = "2022-02-01T07:56:19.625Z" },
+    { url = "https://files.pythonhosted.org/packages/cb/44/314e8e4612bd122dd0424c88b44730af68eafbee88cc887a86586b7a1f2a/django-4.2.23-py3-none-any.whl", hash = "sha256:dafbfaf52c2f289bd65f4ab935791cb4fb9a198f2a5ba9faf35d7338a77e9803", size = 7993904, upload-time = "2025-06-10T10:06:28.092Z" },
 ]
 
 [[package]]
@@ -179,15 +181,15 @@ sdist = { url = "https://files.pythonhosted.org/packages/86/5e/2fb4390d1e7ab38cf
 
 [[package]]
 name = "django-amazon-ses"
-version = "2.1.1"
+version = "4.0.1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "boto3", marker = "implementation_name == 'cpython' and sys_platform == 'linux'" },
     { name = "django", marker = "implementation_name == 'cpython' and sys_platform == 'linux'" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/f3/ff/95d3c66a7f3e20e15484b72f347e40bbdef0dd7b9c6096f76f4c5317a68f/django-amazon-ses-2.1.1.tar.gz", hash = "sha256:fb168c60fb9bc7fc482cf664e861643816c181dccb9e875d6ecc61f76fc0b0b3", size = 10586, upload-time = "2019-06-08T14:04:49.6Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/c9/75/942582e7017ee8a4b63a829a8c0c4623577d2d4c47be793a5643d5c6257b/django-amazon-ses-4.0.1.tar.gz", hash = "sha256:338606b0cf40e07e5cafdea65cb4d0ffa8997d7c8a1817544f352406aa095ae0", size = 10812, upload-time = "2022-04-04T23:01:54.587Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/ee/eb/2119436b296b4640407bbb7cb7fb6116b0de4df43ae2fd4a6ae8dcbad5bd/django_amazon_ses-2.1.1-py2.py3-none-any.whl", hash = "sha256:2135a6ba2ac6b004f534afab17c812ce8c42db7bc64cc149f8f696fecc6925c3", size = 8881, upload-time = "2019-06-08T14:04:47.716Z" },
+    { url = "https://files.pythonhosted.org/packages/1a/07/2d93fe1d2e24eedee073bc3467f67e604597fcc8693004ffccf2b0e28a9a/django_amazon_ses-4.0.1-py3-none-any.whl", hash = "sha256:ed01e1e87efb4439dd3747c2c45e82e29dc5139e7ba83c47619970e391078138", size = 9035, upload-time = "2022-04-04T23:01:52.575Z" },
 ]
 
 [[package]]
@@ -210,14 +212,15 @@ wheels = [
 
 [[package]]
 name = "djangorestframework"
-version = "3.12.2"
+version = "3.14.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "django", marker = "implementation_name == 'cpython' and sys_platform == 'linux'" },
+    { name = "pytz", marker = "implementation_name == 'cpython' and sys_platform == 'linux'" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/4f/39/d93aa554a05a7b4151459960247811aff03a7a14f926d7e34b4877cbb2ae/djangorestframework-3.12.2.tar.gz", hash = "sha256:0898182b4737a7b584a2c73735d89816343369f259fea932d90dc78e35d8ac33", size = 842597, upload-time = "2021-01-06T11:34:24.878Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/8e/53/5b2a002c5ebafd60dff1e1945a7d63dee40155830997439a9ba324f0fd50/djangorestframework-3.14.0.tar.gz", hash = "sha256:579a333e6256b09489cbe0a067e66abe55c6595d8926be6b99423786334350c8", size = 1055343, upload-time = "2022-09-22T11:38:44.245Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/8e/42/4cd19938181a912150e55835109b1933be26b776f3d4fb186491968dc41d/djangorestframework-3.12.2-py3-none-any.whl", hash = "sha256:0209bafcb7b5010fdfec784034f059d512256424de2a0f084cb82b096d6dd6a7", size = 957367, upload-time = "2020-11-05T22:04:52.221Z" },
+    { url = "https://files.pythonhosted.org/packages/ff/4b/3b46c0914ba4b7546a758c35fdfa8e7f017fcbe7f23c878239e93623337a/djangorestframework-3.14.0-py3-none-any.whl", hash = "sha256:eb63f58c9f218e1a7d064d17a70751f528ed4e1d35547fdade9aaf4cd103fd08", size = 1062761, upload-time = "2022-09-22T11:38:41.825Z" },
 ]
 
 [[package]]
@@ -423,21 +426,21 @@ dev = [
 
 [package.metadata]
 requires-dist = [
-    { name = "django", specifier = ">=3.2.12" },
-    { name = "django-allauth", specifier = ">=0.50.0" },
-    { name = "django-amazon-ses", specifier = ">=2.1.1" },
-    { name = "django-bootstrap-form", specifier = ">=3.4" },
-    { name = "django-crispy-forms", specifier = ">=1.14.0" },
-    { name = "djangorestframework", specifier = ">=3.12.2" },
-    { name = "google-measurement-protocol", specifier = ">=1.0.0" },
-    { name = "gunicorn", extras = ["gevent"], specifier = ">=23.0.0" },
-    { name = "s3cmd", specifier = ">=2.1.0" },
-    { name = "sentry-sdk", specifier = ">=0.9.0" },
-    { name = "tldextract", specifier = ">=2.2.1" },
+    { name = "django" },
+    { name = "django-allauth" },
+    { name = "django-amazon-ses" },
+    { name = "django-bootstrap-form" },
+    { name = "django-crispy-forms" },
+    { name = "djangorestframework" },
+    { name = "google-measurement-protocol" },
+    { name = "gunicorn", extras = ["gevent"] },
+    { name = "s3cmd" },
+    { name = "sentry-sdk" },
+    { name = "tldextract" },
 ]
 
 [package.metadata.requires-dev]
-dev = [{ name = "pre-commit", specifier = ">=2.11.1" }]
+dev = [{ name = "pre-commit" }]
 
 [[package]]
 name = "pre-commit"
@@ -636,11 +639,11 @@ wheels = [
 
 [[package]]
 name = "sqlparse"
-version = "0.3.0"
+version = "0.5.3"
 source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/63/c8/229dfd2d18663b375975d953e2bdc06d0eed714f93dcb7732f39e349c438/sqlparse-0.3.0.tar.gz", hash = "sha256:7c3dca29c022744e95b547e867cee89f4fce4373f3549ccd8797d8eb52cdb873", size = 64072, upload-time = "2019-03-11T18:33:17.789Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/e5/40/edede8dd6977b0d3da179a342c198ed100dd2aba4be081861ee5911e4da4/sqlparse-0.5.3.tar.gz", hash = "sha256:09f67787f56a0b16ecdbde1bfc7f5d9c3371ca683cfeaa8e6ff60b4807ec9272", size = 84999, upload-time = "2024-12-10T12:05:30.728Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/ef/53/900f7d2a54557c6a37886585a91336520e5539e3ae2423ff1102daf4f3a7/sqlparse-0.3.0-py2.py3-none-any.whl", hash = "sha256:40afe6b8d4b1117e7dff5504d7a8ce07d9a1b15aeeade8a2d10f130a834f8177", size = 39669, upload-time = "2019-03-11T18:33:16.229Z" },
+    { url = "https://files.pythonhosted.org/packages/a9/5c/bfd6bd0bf979426d405cc6e71eceb8701b148b16c21d2dc3c261efc61c7b/sqlparse-0.5.3-py3-none-any.whl", hash = "sha256:cf2196ed3418f3ba5de6af7e82c694a9fbdbfecccdfc72e281548517081f16ca", size = 44415, upload-time = "2024-12-10T12:05:27.824Z" },
 ]
 
 [[package]]
@@ -674,6 +677,15 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/bf/9b/2bf84e841575b633d8d91ad923e198a415e3901f228715524689495b4317/typing-3.6.6.tar.gz", hash = "sha256:4027c5f6127a6267a435201981ba156de91ad0d1d98e9ddc2aa173453453492d", size = 71799, upload-time = "2018-08-26T18:46:08.429Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/4a/bd/eee1157fc2d8514970b345d69cb9975dcd1e42cd7e61146ed841f6e68309/typing-3.6.6-py3-none-any.whl", hash = "sha256:57dcf675a99b74d64dacf6fba08fb17cf7e3d5fdff53d4a30ea2a5e7e52543d4", size = 25727, upload-time = "2018-08-26T18:46:06.784Z" },
+]
+
+[[package]]
+name = "typing-extensions"
+version = "4.14.1"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/98/5a/da40306b885cc8c09109dc2e1abd358d5684b1425678151cdaed4731c822/typing_extensions-4.14.1.tar.gz", hash = "sha256:38b39f4aeeab64884ce9f74c94263ef78f3c22467c8724005483154c26648d36", size = 107673, upload-time = "2025-07-04T13:28:34.16Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/b5/00/d631e67a838026495268c2f6884f3711a15a9a2a96cd244fdaea53b823fb/typing_extensions-4.14.1-py3-none-any.whl", hash = "sha256:d1e1e3b58374dc93031d6eda2420a48ea44a36c2b4766a4fdeb3710755731d76", size = 43906, upload-time = "2025-07-04T13:28:32.743Z" },
 ]
 
 [[package]]

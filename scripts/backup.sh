@@ -2,6 +2,8 @@
 
 set -e
 
+source .venv/bin/activate
+
 db_path=$(echo "from django.conf import settings
 print(settings.DATABASES['default']['NAME'])" \
   | python manage.py shell)

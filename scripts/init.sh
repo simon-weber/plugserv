@@ -4,6 +4,8 @@ set -e
 
 chmod 770 /opt/plugserv
 
+source .venv/bin/activate
+
 python manage.py collectstatic -c --noinput
 
 python manage.py migrate --noinput

@@ -1,0 +1,27 @@
+[project]
+name = "plugserv"
+version = "0.0.1"
+requires-python = ">= 3.9"
+dependencies = [
+    "django>=3.2.12",
+    "django-allauth>=0.50.0",
+    "django-amazon-ses>=2.1.1",
+    "django-bootstrap-form>=3.4",
+    "django-crispy-forms>=1.14.0",
+    "djangorestframework>=3.12.2",
+    "google-measurement-protocol>=1.0.0",
+    "gunicorn[gevent]>=23.0.0",
+    "s3cmd>=2.1.0",
+    "sentry-sdk>=0.9.0",
+    "tldextract>=2.2.1",
+]
+
+[dependency-groups]
+dev = [
+    "pre-commit>=2.11.1",
+]
+
+[tool.uv]
+environments = [
+    "sys_platform == 'linux' and implementation_name == 'cpython'",
+]

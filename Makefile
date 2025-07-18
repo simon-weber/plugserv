@@ -10,8 +10,5 @@ deploy-cluster: build-cluster
 	envsubst < kube/deployment.env.yaml | kubectl apply -f - && \
 	kubectl rollout restart deployment plugserv
 
-pip-compile:
-	pip-compile -r requirements.in && pip-compile -r dev-requirements.in && pip-sync dev-requirements.txt
-
 serve:
 	python manage.py runserver 0.0.0.0:8000
